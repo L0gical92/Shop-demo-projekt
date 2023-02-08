@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Fyndish-Hem</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" id="logo" href="index.html">Fyndish</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav margin-xl">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home" aria-current="page" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" id="electronics" href="index.html">Electronics</a></li>
+                                <li><a class="dropdown-item" id="jewelery" href="index.html">Jewelery</a></li>
+                                <li><a class="dropdown-item" id="mens" href="index.html">Men's clothing</a></li>
+                                <li><a class="dropdown-item" id="womens" href="index.html">Women's clothing</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact_us.html">Contact Us</a>
+                        </li>
+                        <li class="nav-item">
+
+                            <a class="nav-link " id="cart" href="cart.html">Cart <img
+                                    src="Media\Images\shopping-cart.png" alt="A cart icon" width="20vW"><span
+                                    id="itemCount"></span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section  id="checkOutSec">
+        <div id="checkOutCart">
+            
+        </div>
+        <div id="checkOutform">
+            <div class="d-none" id="confirmationMSG">
+                <p><h1>Thank you for your purchase from Fyndish.</h1>Your order submitted succesefully. will recieve payment info shortly!
+                </p>
+            </div>
+            <fieldset class="form-group border p-3 rounded">
+                <legend >
+                    <h3 class="text-center" >Checkout:</h3>
+                </legend>
+                <form class="form-horizontal p-5" id="contactForm">
+                    <label for="name" class="control-label ">First name:</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" required>
+                    <label for="lastName" class="control-label">Last name:</label>
+                    <input type="text" class="form-control" id="lastName" name="LastName" required>
+                    <label for="email" class="control-label col-sm-2">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <label for="address" class="control-label col-sm-2">Adress:</label>
+                    <input type="text" class="form-control" id="address" name="address" required>
+                    <label for="zipcode" class="control-label ">Zip Code:</label>
+                    <input type="number" class="form-control" id="zipcode" name="zipcode" required>
+                    <label for="city" class="control-label col-sm-2">City:</label>
+                    <input type="text" class="form-control" id="city" name="city" required>
+                    <label for="shipping" class="control-label">shipping:</label>
+                    <br>
+                    <select name="shipping" class="form-control" id="shipping" required>
+                        <option value="" disabled selected>Select a shipping option</option>
+                        <option value="Standard">5-7 business days</option>
+                        <option value="Expedited">3-8 business days</option>
+                        <option value="priority">1-3 business days</option>
+                        <option value="nextDay">Next business day</option>
+                    </select>
+                    <br>
+                    <input id="submitButton"  type="submit" class="btn btn-success" value="Submit order">
+                </form>
+            </fieldset>
+        </div>
+    </section>
+    <script src="app.js"></script>
+</body>
+
+</html>
