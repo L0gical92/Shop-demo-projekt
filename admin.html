@@ -12,16 +12,53 @@
 </head>
 
 <body>
-    <header>
+    <header class="d-flex justify-content-evenly p-5 m-5">
+        <p><b>FYNDISH</b></p>
         <h1 class="text-center m-2">Admin Panel</h1>
+        <a href="index.html"><b>Home</b></a>
     </header>
     <section id="currentOrders">
+        <div id="editBoxContainer">
+                <div id="selectOptionsContainer">
+                    <select name="selectOptions" id="selectOptions">
+                        <option value="">--choose an option--</option>
+                        <option value="1">Edit customer name</option>
+                        <option value="2">Edit contact info</option>
+                        <option value="3">Edit shipping/total</option>
+                    </select>
+                </div>
+                <div id="newName">
+                    <label for="newFirstName">New first name:</label>
+                    <input type="text" id="newFirstName" name="newFirstName">
+                    <label for="newLastName">New last name:</label>
+                    <input type="text" id="newLastName" name="newLastName">
+                    <button type="button" id="editNameButton" class="btn btn-primary">Submit</button>
+                </div>
+                <div id="contactInfo">
+                    <label for="NewEmail">New E-mail:</label>
+                    <input type="email" id="NewEmail" name="NewEmail">
+                    <label for="NewAddress">New Adress:</label>
+                    <input type="text" id="NewAddress" name="NewAddress">
+                    <label for="NewZipcode">New Zip Code:</label>
+                    <input type="number" id="NewZipcode" name="NewZipcode">
+                    <label for="NewCity">New city:</label>
+                    <input type="text" id="NewCity" name="NewCity">
+                    <button type="button" id="editInfoButton" class="btn btn-primary">Submit</button>
+                </div>
+                <div id="shippingTot">
+                    <label for="NewShipping">New shipping:</label>
+                    <input type="text" id="NewShipping" name="NewShipping">
+                    <label for="newTotal">New total:</label>
+                    <input type="number" id="newTotal" name="newTotal">
+                    <button type="button" id="newTotShipping" class="btn btn-primary">Submit</button>
+                </div>
+        </div>
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Order ID</th>
                     <th scope="col">Full Name</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">E-mail</th>
                     <th scope="col">Adress</th>
                     <th scope="col">Shipping</th>
                     <th scope="col">Products</th>
@@ -32,10 +69,6 @@
             </tbody>
         </table>
     </section>
-    <footer>
-        <p><b>FYNDISH</b></p>
-        <a href="index.html"><b>Home</b></a>
-    </footer>
     <script src="adminApp.js"></script>
 </body>
 

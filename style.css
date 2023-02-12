@@ -20,10 +20,12 @@
 #productArticle h5 {
     max-width: 400px;
 }
-#checkOutCart{
+
+#checkOutCart {
 
     margin: 2vw;
 }
+
 #cartSection {
     padding: 5vw;
 }
@@ -37,11 +39,13 @@ td {
     font-size: larger;
     margin: 1vw;
 }
-.tableCell{
+
+.tableCell {
     font-size: small;
 }
+
 #checkOutContainer {
- float: right;
+    float: right;
 }
 
 #total {
@@ -54,13 +58,37 @@ td {
     justify-content: center;
     margin: 5vh 0 0 0;
 }
-#confirmationMSG{
-    position: absolute;
-    z-index: 1;
-    bottom: 50vh;
+
+#editBoxContainer {
+    display: none;
+    background-color: gray;
+    height: 15vh;
+    margin: 5vw;
 }
 
 
+
+#contactForm input {
+    margin: 1vw;
+}
+#ratingPrice {
+    display: flex;
+}
+#selectOptions{
+    margin: 1vw;
+
+}
+#newName{
+    display: none;
+    margin: 1%;
+}
+#contactInfo{
+    display: none;
+    margin: 1%;
+}
+#shippingTot{
+    display: none;
+}
 footer {
     display: flex;
     align-items: center;
@@ -77,12 +105,14 @@ footer p {
         display: block;
 
     }
+
     #checkOutSec {
         display: block;
         justify-content: center;
         margin: 5vh 0 0 0;
     }
-    th{
+
+    th {
         font-size: small;
     }
 }

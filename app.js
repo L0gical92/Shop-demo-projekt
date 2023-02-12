@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 //Variables
 const productSectionEl = document.getElementById("productsSection");
 const itemsCountEl = document.getElementById("itemCount");
@@ -25,22 +25,28 @@ const zipcodeEl = document.getElementById("zipcode");
 const cityEl = document.getElementById("city");
 const shippingEl = document.getElementById("shipping");
 const submitCheckoutEl = document.getElementById("contactForm");
+const checkOutSecEl = document.getElementById("checkOutSec");
+const confirmationMSGEl = document.getElementById("confirmationMSG");
 let runningTotal = 0;
-apiPath = localStorage.getItem("apiPath") || "products"
 
 //Declaring cartItems, its value depends on localStorage
-cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 if (typeof itemsCountEl !== 'undefined' && itemsCountEl != null) {
   itemsCountEl.innerHTML = cartItems.length;
 }
+fetchingProducts();
 //fetching products from Fake store API
-fetch("https://fakestoreapi.com/" + apiPath) //apiPath changes depending on localstorage value, therefore changing fetched products.
-  .then(result => result.json())
-  .then(data => {
-    if (productSectionEl != null) {
-      displayProducts(data);
-    }
-  });
+function fetchingProducts() {
+  let apiPath = localStorage.getItem("apiPath") || "products";
+  fetch("https://fakestoreapi.com/" + apiPath) //apiPath changes depending on localstorage value, therefore changing fetched products.
+    .then(result => result.json())
+    .then(data => {
+      if (productSectionEl != null) {
+        displayProducts(data);
+      }
+    });
+}
+
 
 //Displaying products in main page.
 function displayProducts(jsonData) {
@@ -52,9 +58,11 @@ function displayProducts(jsonData) {
         <img src='${product.image}' alt='' class='image m-4 "' width="100vw">
         <div>
         <p class="card-text">${product.description}</p>
-        <div id="productButtons">
-        <a href="#" class="btn btn-primary m-5">Buy now</a>
-        <a href="#" class="btn btn-primary" onclick="addToCart('${product.id}')">Add to cart</a>
+        <div class="text-center">${product.rating.rate}&#11088; <b>(${product.rating.count})</b> || Price:<b> ${product.price}$</b></div>
+        
+        <div class=" text-center" id="productButtons">
+        <button class="btn btn-primary m-5" onclick="addToCart('${product.id}');window.location.href='cart.html';">Buy now</button>
+        <button class="btn btn-primary" onclick="addToCart('${product.id}')">Add to cart</button>
         </div>
         </article>`;
 
@@ -63,10 +71,11 @@ function displayProducts(jsonData) {
 
 //making sure Checkout button dissapears if cart is empty.
 if (checkoutcontainerEl != null && typeof checkoutcontainerEl !== 'undefined') {
-if (!localStorage.getItem("cartItems") || cartItems.length == 0 ) {
-  checkoutcontainerEl.className = "d-none";
+  if (!localStorage.getItem("cartItems") || cartItems.length == 0) {
+    checkoutcontainerEl.className = "d-none";
+  }
 }
-}
+
 //Add to cart function
 function addToCart(productId) {
   if (!cartItems.includes(productId)) {
@@ -100,7 +109,7 @@ if (typeof cartSectionEl !== 'undefined' && cartSectionEl != null) {
         <td><input type="image" src="Media/Images/remove-button.png" alt="delete from cart" height="30vh" width="30vw" onclick="removeFromCart('${product.id}')"></td>
         <td id="subTotal-${product.id}">${subTotal}</td>
       </tr>`;
-        intSubTotal = parseInt(subTotal);
+        let intSubTotal = parseInt(subTotal);
         runningTotal += +subTotal;
         totalEl.innerText = runningTotal;
         localStorage.setItem("total", totalEl.innerText)
@@ -141,6 +150,7 @@ function decreaseQuantity(productId) {
 
 //increasing quantity in cart
 function increaseQuantity(productId) {
+  console.log(localStorage.getItem(`quantity-${productId}`))
   let quantityEl = document.getElementById(`quantity-${productId}`);
   let quantity = parseInt(quantityEl.innerText);
   if (quantity < 10) {
@@ -153,11 +163,11 @@ function increaseQuantity(productId) {
     localStorage.setItem(`quantity-${productId}`, quantity);
     localStorage.setItem(`subTotal-${productId}`, subTotalEl.innerText);
     console.log("new subTotal " + localStorage.getItem(`subTotal-${productId}`));
-    window.location.reload();
+    console.log(localStorage.getItem(`quantity-${productId}`))
   }
 }
 
-//displaying a preview of the cart while checkingout.
+//displaying a preview of the cart while checking out.
 if (typeof checkoutCartEl !== 'undefined' && checkoutCartEl != null) {
   let promises = [];
   for (let i = 0; i < cartItems.length; i++) {
@@ -168,7 +178,8 @@ if (typeof checkoutCartEl !== 'undefined' && checkoutCartEl != null) {
         .then(res => res.json())
         .then(product => {
           checkoutCartEl.innerHTML += `<article id="productArticle">
-          <p>${product.title} <br> <img src='${product.image}' alt='' class='image m-4 "' width="30vw"> Quantity: ${checkoutQuantity}</p>
+          <p>${product.title} <br> <img src='${product.image}' alt='' class='image m-4 "' width="30vw"> Quantity: ${checkoutQuantity} | Price: ${product.price}$</p>
+          <hr class="hrCart">
           </article>`;
         })
     );
@@ -184,7 +195,7 @@ if (typeof checkoutCartEl !== 'undefined' && checkoutCartEl != null) {
 //listning to checkout button and posting items to firebase with the help of cartItems array fetching the items first.
 submitCheckoutEl?.addEventListener("submit", function (event) {
   event.preventDefault();
-  let checkoutProducts = {};
+  let checkoutProducts = [];
   let promises = [];
 
   for (let i = 0; i < cartItems.length; i++) {
@@ -193,22 +204,26 @@ submitCheckoutEl?.addEventListener("submit", function (event) {
         .then(res => res.json())
         .then(product => {
           let productId = product.id;
-          let quantity = localStorage.getItem(`quantity-${productId}`);
-          checkoutProducts[product.title] = {
+          let quantity = parseInt(localStorage.getItem(`quantity-${productId}`));
+          checkoutProducts.push({
             "mapValue": {
               "fields": {
+                "title": {
+                  "stringValue": product.title
+                },
                 "quantity": {
                   "integerValue": quantity
                 },
-                "price": {
-                  "doubleValue": product.price
-                },
                 "productId": {
                   "integerValue": product.id
+                },
+                "price": {
+                  "doubleValue": product.price
                 }
               }
             }
-          };
+          }
+          );
         })
     );
   }
@@ -249,12 +264,12 @@ submitCheckoutEl?.addEventListener("submit", function (event) {
             "stringValue": shipping
           },
           "total": {
-            "integerValue": total
+            "doubleValue": total
           },
           "products": {
-            "mapValue": {
-              "fields": checkoutProducts
-
+            "arrayValue": {
+              "values":
+                checkoutProducts
             }
           }
         }
@@ -268,7 +283,12 @@ submitCheckoutEl?.addEventListener("submit", function (event) {
         body: body
       })
         .then(res => res.json())
-        .then(data => console.log("Order submitted" + data))
+        .then(data => {
+          console.log("Order submitted");
+          localStorage.clear();
+          checkOutSecEl.className = "d-none"
+          confirmationMSGEl.classList.remove("d-none");
+        })
     });
 
 });
@@ -291,12 +311,3 @@ mensEl.addEventListener("click", function () {
 womensEl.addEventListener("click", function () {
   localStorage.setItem("apiPath", "products/category/women's clothing");
 });
-
-
-
-
-
-
-
-
-

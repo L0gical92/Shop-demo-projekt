@@ -39,12 +39,9 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact_us.html">Contact Us</a>
-                        </li>
-                        <li class="nav-item">
 
                             <a class="nav-link " id="cart" href="cart.html">Cart <img
-                                    src="Media\Images\shopping-cart.png" alt="A cart icon" width="20vW"><span
+                                    src="Media/Images/shopping-cart.png" alt="A cart icon" width="20"><span
                                     id="itemCount"></span></a>
                         </li>
                     </ul>
@@ -52,21 +49,20 @@
             </div>
         </nav>
     </header>
+    <div class="m-2 text-center d-none" id="confirmationMSG">
+        <h1>Thank you for your purchase from Fyndish.</h1>Your order submitted succesefully. will recieve payment info shortly!
+    </div>
     <section  id="checkOutSec">
         <div id="checkOutCart">
             
         </div>
         <div id="checkOutform">
-            <div class="d-none" id="confirmationMSG">
-                <p><h1>Thank you for your purchase from Fyndish.</h1>Your order submitted succesefully. will recieve payment info shortly!
-                </p>
-            </div>
             <fieldset class="form-group border p-3 rounded">
                 <legend >
                     <h3 class="text-center" >Checkout:</h3>
                 </legend>
                 <form class="form-horizontal p-5" id="contactForm">
-                    <label for="name" class="control-label ">First name:</label>
+                    <label for="firstName" class="control-label ">First name:</label>
                     <input type="text" class="form-control" id="firstName" name="firstName" required>
                     <label for="lastName" class="control-label">Last name:</label>
                     <input type="text" class="form-control" id="lastName" name="LastName" required>
