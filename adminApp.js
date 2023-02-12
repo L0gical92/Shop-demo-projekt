@@ -82,9 +82,13 @@ function showMenu(orderId) {
         if (this.value === "1") {
             newNameEl.style.display = "block";
             contactInfoEl.style.display = "none";
+            shippingTotEl.style.display="none";
+
         } else if (this.value === "2") {
             contactInfoEl.style.display = "block";
             newNameEl.style.display = "none";
+            shippingTotEl.style.display="none";
+
         } else if (this.value === "3") {
             shippingTotEl.style.display="block";
             contactInfoEl.style.display = "none";
